@@ -56,9 +56,12 @@ describe('Auth component', () => {
   })
   test('[3] Submitting form typing [ENTER] shows "Please wait..." message', async () => {
     // ✨ type whatever values in username and password inputs
+    await user.type(userInput, 'whatever1')
+    await user.type(passInput, 'whatever2')
     // ✨ hit the [ENTER] key on the keyboard
+    await user.type(passInput, '{enter}')
     // ✨ assert that the "Please wait..." message is visible in the DOM
-    expect(true).toBe(false) // DELETE
+    expect(screen.getByText('Please wait...')).toBeInTheDocument()
   })
   test('[4] Submitting an empty form shows "Invalid Credentials" message', async () => {
     // ✨ submit an empty form
