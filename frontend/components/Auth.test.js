@@ -83,10 +83,15 @@ describe('Auth component', () => {
         - correct user info (ID, username, birth date)
         - logout button`, async () => {
       // ✨ type valid credentials and submit form
+      await user.type(userInput, usr.username)
+      await user.type(passInput, usr.password)
+      await user.click(loginBtn)
       // ✨ assert that the correct welcome message is eventually visible
+      await waitFor(() => expect(screen.getByText('Stars\' Lounge')).toBeInTheDocument())
       // ✨ assert that the correct user info appears is eventually visible
+      await waitFor(() => expect(screen.getByText(`ID: ${usr.id}, Username: ${usr.username}, Born: ${usr.born}`)).toBeInTheDocument())
       // ✨ assert that the logout button appears
-      expect(true).toBe(false) // DELETE
+       await waitFor(() => expect(screen.getByTestId('logoutBtn')).toBeInTheDocument())
     })
   }
   test('[7] Logging out a logged-in user displays goodbye message and renders form', async () => {
