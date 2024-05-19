@@ -71,8 +71,11 @@ describe('Auth component', () => {
   })
   test('[5] Submitting incorrect credentials shows "Invalid Credentials" message', async () => {
     // ✨ type whatever username and password and submit form
+    await user.type(userInput, 'wrongUser')
+    await user.type(passInput, 'wrongPassword')
     // ✨ assert that the "Invalid Credentials" message eventually is visible
-    expect(true).toBe(false) // DELETE
+    await user.click(loginBtn)
+    await waitFor(() => expect(screen.getByText('Invalid Credentials')).toBeInTheDocument())
   })
   for (const usr of registeredUsers) {
     test(`[6.${usr.id}] Logging in ${usr.username} makes the following elements render:
